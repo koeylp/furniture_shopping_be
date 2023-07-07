@@ -9,4 +9,17 @@ const getAllProducts = async (req, res) => {
   }
 };
 
-module.exports = { getAllProducts };
+const getProductsByCategory = async (req, res) => {
+  try {
+    const category_id = req.params;
+    console.log(category_id.category);
+    const products = await productService.getProductsByCategory(category_id.category);
+    res.status(200).json(products);
+  } catch (error) {
+    res.status(404).json({ message: error.message });
+  }
+}
+
+
+
+module.exports = { getAllProducts, getProductsByCategory };

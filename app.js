@@ -5,6 +5,7 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 const express = require("express");
 const productRoute = require("./routes/productRoute");
+const categoryRoute = require("./routes/categoryRoute");
 
 
 const app = express();
@@ -14,6 +15,7 @@ app.use(cors());
 
 /* ROUTES */
 app.use("/products", productRoute);
+app.use("/categories", categoryRoute);
 
 
 /* MONGOOSE SETUP */

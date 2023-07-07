@@ -6,6 +6,11 @@ const productSchema = Schema({
     type: String,
     require: true,
   },
+  category: {
+    type: String,
+    require: true,
+    ref: "Category"
+  },
   price: {
     type: Number,
     require: true,
