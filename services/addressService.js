@@ -28,9 +28,10 @@ const getAllWards = async () => {
   }
 };
 
-const getAddressByEmail = async (email) => {
+const getAddressByUser = async (id) => {
   try {
-    const addresses = await Address.find({}).populate("user");
+    const addresses = await Address.find({ user: id.id });
+    console.log(addresses);
     return addresses;
   } catch (error) {
     throw new Error(error);
@@ -46,10 +47,21 @@ const addNewAddress = async (newAddress) => {
   }
 };
 
+const setDefaultAddress = async (id, userId) => {
+  try {
+    await Address.updateMany({"user": userId.userId}, {"$set":{"status": 0}});
+    const address = await Address.updateOne({"_id": id.id}, {"$set":{"status": 1}});
+    return address;
+  } catch (error) {
+    throw new Error(error);
+  }
+};
+
 module.exports = {
   getAllProvinces,
   getAllDistricts,
   getAllWards,
-  getAddressByEmail,
-  addNewAddress
+  getAddressByUser,
+  addNewAddress,
+  setDefaultAddress,
 };

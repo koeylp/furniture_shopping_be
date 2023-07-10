@@ -28,10 +28,11 @@ const getAllWards = async (req, res) => {
   }
 };
 
-const getAddressByEmail = async (req, res) => {
-  const email = req.params;
+const getAddressByUser = async (req, res) => {
+  const id = req.params;
+  console.log(id);
   try {
-    const addresses = await addressService.getAddressByEmail(email);
+    const addresses = await addressService.getAddressByUser(id);
     res.status(200).json(addresses);
   } catch (error) {
     res.status(404).json({ message: error.message });
@@ -40,9 +41,19 @@ const getAddressByEmail = async (req, res) => {
 
 const addNewAddress = async (req, res) => {
   const newAddress = req.body;
-  console.log(newAddress);
   try {
     const address = await addressService.addNewAddress(newAddress);
+    res.status(200).json(address);
+  } catch (error) {
+    res.status(404).json({ message: error.message });
+  }
+};
+
+const setDefaultAddress = async (req, res) => {
+  const id = req.params;
+  const userId = req.params;
+  try {
+    const address = await addressService.setDefaultAddress(id, userId);
     res.status(200).json(address);
   } catch (error) {
     res.status(404).json({ message: error.message });
@@ -53,6 +64,7 @@ module.exports = {
   getAllProvinces,
   getAllDistricts,
   getAllWards,
-  getAddressByEmail,
-  addNewAddress
+  getAddressByUser,
+  addNewAddress,
+  setDefaultAddress,
 };
