@@ -3,7 +3,6 @@ const addressService = require("../services/addressService");
 const getAllProvinces = async (req, res) => {
   try {
     const provinces = await addressService.getAllProvinces();
-    // const jsonData = JSON.stringify(provinces);
     res.status(200).json(provinces);
   } catch (error) {
     res.status(404).json({ message: error.message });
@@ -30,7 +29,6 @@ const getAllWards = async (req, res) => {
 
 const getAddressByUser = async (req, res) => {
   const id = req.params;
-  console.log(id);
   try {
     const addresses = await addressService.getAddressByUser(id);
     res.status(200).json(addresses);

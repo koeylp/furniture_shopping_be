@@ -7,6 +7,8 @@ const categoryRoute = require("./routes/categoryRoute");
 const addressRoute = require("./routes/addressRoute");
 const authRoute = require("./routes/authRoute");
 const userRoute = require("./routes/userRoute");
+const orderRoute = require("./routes/orderRoute");
+const cartRoute = require("./routes/cartRoute");
 
 const app = express();
 
@@ -19,6 +21,8 @@ app.use("/categories", categoryRoute);
 app.use("/address", addressRoute);
 app.use("/auth", authRoute);
 app.use("/user", userRoute);
+app.use("/orders", orderRoute);
+app.use("/cart", cartRoute);
 
 /* MONGOOSE SETUP */
 const PORT = process.env.PORT || 2819;

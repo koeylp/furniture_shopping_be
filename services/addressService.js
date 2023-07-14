@@ -31,7 +31,6 @@ const getAllWards = async () => {
 const getAddressByUser = async (id) => {
   try {
     const addresses = await Address.find({ user: id.id });
-    console.log(addresses);
     return addresses;
   } catch (error) {
     throw new Error(error);
