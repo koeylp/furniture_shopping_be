@@ -56,29 +56,15 @@ const deleteCartItemById = async (user, product) => {
     if (existingItem) {
       await Cart.findOneAndUpdate(
         {
-          user: newCart.user,
-          "items.product": newCart.items[0].product,
+          user: user.user,
         },
         {
-          $inc: {
-            "items.$.cartQuantity": newCart.items[0].cartQuantity,
-          },
-        }
-      );
-    } else {
-      await Cart.findOneAndUpdate(
-        {
-          user: newCart.user,
-          "items.product": newCart.items[0].product,
-        },
-        {
-          $inc: {
-            "items.$.cartQuantity": -newCart.items[0].cartQuantity,
+          $pull: {
+            items: { product: product.product },
           },
         }
       );
     }
-    return cart;
   } catch (error) {
     throw new Error(error);
   }
