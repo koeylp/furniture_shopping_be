@@ -15,11 +15,12 @@ const login = async (req, res) => {
 };
 
 const signup = async (req, res) => {
-  const { email, fullname } = req.body;
+  const { email, fullname, phone } = req.body;
   try {
     const newUser = new User({
       email,
       fullname,
+      phone,
     });
     const savedUser = await newUser.save();
     res.status(201).json(savedUser);

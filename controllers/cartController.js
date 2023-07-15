@@ -31,4 +31,16 @@ const deleteCartItemById = async (req, res) => {
   }
 }
 
-module.exports = { addToCart, getCartByUser, deleteCartItemById };
+const eidtCartQuantity = async (req, res) => {
+  try {
+    const product = req.params;
+    const user = req.params;
+    const func = req.params;
+    const cart = await cartService.eidtCartQuantity(user, product, func);
+    res.status(200).json(cart);
+  } catch (error) {
+    res.status(404).json({ message: error.message });
+  }
+}
+
+module.exports = { addToCart, getCartByUser, deleteCartItemById, eidtCartQuantity };

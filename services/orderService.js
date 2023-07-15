@@ -17,8 +17,6 @@ const createOrder = async (newOrder) => {
         $set: { items: [] },
       }
     );
-
-    console.log("here");
     const order = await Order.create(newOrder);
     return order;
   } catch (error) {

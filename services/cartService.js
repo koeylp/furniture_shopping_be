@@ -50,8 +50,50 @@ const getCartByUser = async (user) => {
 const deleteCartItemById = async (user, product) => {
   try {
     const cart = await Cart.findOne({ user: user.user });
-    const existingItem = cart.items.find((item) => item.product === product.product);
+    const existingItem = cart.items.find(
+      (item) => item.product === product.product
+    );
     if (existingItem) {
+      await Cart.findOneAndUpdate(
+        {
+          user: newCart.user,
+          "items.product": newCart.items[0].product,
+        },
+        {
+          $inc: {
+            "items.$.cartQuantity": newCart.items[0].cartQuantity,
+          },
+        }
+      );
+    } else {
+      await Cart.findOneAndUpdate(
+        {
+          user: newCart.user,
+          "items.product": newCart.items[0].product,
+        },
+        {
+          $inc: {
+            "items.$.cartQuantity": -newCart.items[0].cartQuantity,
+          },
+        }
+      );
+    }
+    return cart;
+  } catch (error) {
+    throw new Error(error);
+  }
+};
+
+const eidtCartQuantity = async (user, product, func) => {
+  try {
+    const cart = await Cart.findOne({ user: user.user });
+    const existingItem = cart.items.find(
+      (item) => item.product === product.product
+    );
+    if (existingItem) {
+      if (func === "plus") {
+
+      }
       await Cart.findOneAndUpdate(
         {
           user: user.user,
@@ -63,10 +105,14 @@ const deleteCartItemById = async (user, product) => {
         }
       );
     }
-    return cart;
   } catch (error) {
     throw new Error(error);
   }
 };
 
-module.exports = { addToCart, getCartByUser, deleteCartItemById };
+module.exports = {
+  addToCart,
+  getCartByUser,
+  deleteCartItemById,
+  eidtCartQuantity,
+};
