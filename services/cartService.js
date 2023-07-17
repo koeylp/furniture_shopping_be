@@ -70,35 +70,30 @@ const deleteCartItemById = async (user, product) => {
   }
 };
 
-const updateQuantity = async (user, product) => {
+const updateQuantity = async (user, product, quantity) => {
   try {
-    const existCart = await Cart.find({ user: newCart.user });
-    if (existCart.length === 0) {
-      await Cart.create(newCart);
-    } else {
-      const cart = await Cart.findOne({ user: newCart.user });
-      const existingItem = cart.items.find(
-        (item) => item.product === newCart.items[0].product
-      );
+    const cart = await Cart.findOne({ user: user });
+    const existingItem = cart.items.find(
+      (item) => item.product === product
+    );
 
-      if (existingItem) {
-        await Cart.findOneAndUpdate(
-          {
-            user: newCart.user,
-            "items.product": newCart.items[0].product,
+    if (existingItem) {
+      await Cart.findOneAndUpdate(
+        {
+          user: user,
+          "items.product": product,
+        },
+        {
+          $set: {
+            "items.$.cartQuantity": quantity,
           },
-          {
-            $inc: {
-              "items.$.cartQuantity": newCart.items[0].cartQuantity,
-            },
-          }
-        );
-      } else {
-        await Cart.findOneAndUpdate(
-          { user: newCart.user },
-          { $push: { items: newCart.items[0] } }
-        );
-      }
+        }
+      );
+    } else {
+      await Cart.findOneAndUpdate(
+        { user: newCart.user },
+        { $push: { items: newCart.items[0] } }
+      );
     }
   } catch (error) {
     throw new Error(error);

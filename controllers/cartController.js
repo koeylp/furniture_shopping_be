@@ -33,9 +33,10 @@ const deleteCartItemById = async (req, res) => {
 
 const updateQuantity = async (req, res) => {
   try {
-    const product = req.params;
-    const user = req.params;
-    const cart = await cartService.updateQuantity(user, product);
+    const product = req.params.product;
+    const user = req.params.user;
+    const quantity = req.params.quantity;
+    const cart = await cartService.updateQuantity(user, product, quantity);
     res.status(200).json(cart);
   } catch (error) {
     res.status(404).json({ message: error.message });
