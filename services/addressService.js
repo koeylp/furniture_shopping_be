@@ -48,8 +48,20 @@ const addNewAddress = async (newAddress) => {
 
 const setDefaultAddress = async (id, userId) => {
   try {
-    await Address.updateMany({"user": userId.userId}, {"$set":{"status": 0}});
-    const address = await Address.updateOne({"_id": id.id}, {"$set":{"status": 1}});
+    await Address.updateMany({ user: userId.userId }, { $set: { status: 0 } });
+    const address = await Address.updateOne(
+      { _id: id.id },
+      { $set: { status: 1 } }
+    );
+    return address;
+  } catch (error) {
+    throw new Error(error);
+  }
+};
+
+const deleteAddress = async (addressId) => {
+  try {
+    const address = await Address.findOneAndDelete({ _id: addressId });
     return address;
   } catch (error) {
     throw new Error(error);
@@ -63,4 +75,5 @@ module.exports = {
   getAddressByUser,
   addNewAddress,
   setDefaultAddress,
+  deleteAddress,
 };

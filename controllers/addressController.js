@@ -58,6 +58,16 @@ const setDefaultAddress = async (req, res) => {
   }
 };
 
+const deleteAddress = async (req, res) => {
+  try {
+    const addressId = req.params.addressId;
+    const address = await addressService.deleteAddress(addressId);
+    res.status(200).json(address);
+  } catch (error) {
+    res.status(404).json({ message: error.message });
+  }
+};
+
 module.exports = {
   getAllProvinces,
   getAllDistricts,
@@ -65,4 +75,5 @@ module.exports = {
   getAddressByUser,
   addNewAddress,
   setDefaultAddress,
+  deleteAddress
 };

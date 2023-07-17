@@ -29,18 +29,22 @@ const deleteCartItemById = async (req, res) => {
   } catch (error) {
     res.status(404).json({ message: error.message });
   }
-}
+};
 
-const eidtCartQuantity = async (req, res) => {
+const updateQuantity = async (req, res) => {
   try {
     const product = req.params;
     const user = req.params;
-    const func = req.params;
-    const cart = await cartService.eidtCartQuantity(user, product, func);
+    const cart = await cartService.updateQuantity(user, product);
     res.status(200).json(cart);
   } catch (error) {
     res.status(404).json({ message: error.message });
   }
-}
+};
 
-module.exports = { addToCart, getCartByUser, deleteCartItemById, eidtCartQuantity };
+module.exports = {
+  addToCart,
+  getCartByUser,
+  deleteCartItemById,
+  updateQuantity,
+};

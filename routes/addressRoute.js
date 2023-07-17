@@ -8,5 +8,6 @@ router.get("/wards", addressController.getAllWards);
 router.get("/:id", addressController.getAddressByUser);
 router.post("/", addressController.addNewAddress);
 router.put("/:id/:userId", addressController.setDefaultAddress);
+router.delete("/delete/:addressId", addressController.deleteAddress);
 
 module.exports = router;

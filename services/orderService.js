@@ -11,6 +11,13 @@ const createOrder = async (newOrder) => {
       );
     });
 
+    newOrder.orderDetails.forEach(async (product) => {
+      await Product.updateOne(
+        { _id: product.product, quantity: 0 },
+        { $set: { status: false } }
+      );
+    });
+
     await Cart.findOneAndUpdate(
       { user: newOrder.user },
       {

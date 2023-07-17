@@ -9,7 +9,7 @@ const productSchema = Schema({
   category: {
     type: String,
     require: true,
-    ref: "Category"
+    ref: "Category",
   },
   price: {
     type: Number,
@@ -21,6 +21,11 @@ const productSchema = Schema({
   },
   description: String,
   img: String,
+  status: {
+    type: Boolean,
+    require: true,
+    default: true,
+  },
 });
 
 module.exports = mongoose.model("Product", productSchema);
