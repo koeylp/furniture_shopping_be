@@ -7,6 +7,10 @@ const userSchema = Schema({
     require: true,
     unique: true,
   },
+  password: {
+    type: String,
+    require: true,
+  },
   fullname: {
     type: String,
     require: true,
@@ -14,6 +18,10 @@ const userSchema = Schema({
   phone: {
     type: String,
     require: true,
+  },
+  admin: {
+    type: Boolean,
+    default: false,
   },
 });
 

@@ -18,4 +18,12 @@ const getProductsByCategory = async (category_id) => {
   }
 };
 
-module.exports = { getAllProducts, getProductsByCategory };
+const addProduct = async (newProduct) => {
+  try {
+    await Product.create(newProduct);
+  } catch (error) {
+    throw new Error(error);
+  }
+};
+
+module.exports = { getAllProducts, getProductsByCategory, addProduct };

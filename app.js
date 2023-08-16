@@ -2,6 +2,7 @@ require("dotenv").config();
 const mongoose = require("mongoose");
 const cors = require("cors");
 const express = require("express");
+const cookieParser = require("cookie-parser");
 const productRoute = require("./routes/productRoute");
 const categoryRoute = require("./routes/categoryRoute");
 const addressRoute = require("./routes/addressRoute");
@@ -10,10 +11,12 @@ const userRoute = require("./routes/userRoute");
 const orderRoute = require("./routes/orderRoute");
 const cartRoute = require("./routes/cartRoute");
 
+
 const app = express();
 
 app.use(express.json());
 app.use(cors());
+app.use(cookieParser());
 
 /* ROUTES */
 app.use("/products", productRoute);
